@@ -37,7 +37,7 @@
   .eyebrow::before{content:"";width:26px;height:1px;background:var(--accent)}
   h1{
     font-size:clamp(42px,7.2vw,86px); line-height:.96; letter-spacing:-.035em; font-weight:600;
-    max-width:15ch;
+    max-width:19ch;
   }
   h1 .num{color:var(--accent)}
   .lede{
@@ -58,19 +58,19 @@
 
   /* ---------- bars ---------- */
   .bars{display:flex;flex-direction:column;gap:2px}
-  .bar{display:grid;grid-template-columns:250px 1fr 96px;align-items:center;gap:18px;
+  .bar{display:grid;grid-template-columns:310px 1fr 92px;align-items:center;gap:18px;
        padding:11px 0;border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer}
   .bar:hover .bl{color:var(--ink)}
-  .bl{font-size:13.5px;color:var(--muted);transition:color .2s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bl{font-size:13px;color:var(--muted);transition:color .2s;line-height:1.3}
   .btrack{height:22px;position:relative;background:rgba(255,255,255,.03);border-radius:2px;overflow:hidden}
   .bfill{height:100%;width:0;border-radius:2px;transition:width 1s cubic-bezier(.2,.8,.2,1)}
   .bv{font-family:var(--mono);font-size:12px;color:var(--muted);text-align:right}
   .bv small{color:var(--dim);font-size:10.5px;display:block}
 
   /* ---------- timeline ---------- */
-  .tl{display:flex;align-items:flex-end;gap:14px;height:270px;padding-top:10px}
-  .tcol{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;gap:8px}
-  .tstack{display:flex;flex-direction:column-reverse;height:100%;justify-content:flex-start;
+  .tl{display:flex;align-items:flex-end;gap:14px;height:300px;padding-top:6px}
+  .tcol{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;gap:6px}
+  .tstack{display:flex;flex-direction:column;justify-content:flex-end;min-height:6px;
           border-radius:3px;overflow:hidden;background:rgba(255,255,255,.02)}
   .tseg{width:100%;transition:height .9s cubic-bezier(.2,.8,.2,1)}
   .tyear{font-family:var(--mono);font-size:11px;color:var(--dim);text-align:center;letter-spacing:.06em}
@@ -264,11 +264,11 @@ document.getElementById('timeline').innerHTML = ys.map(y => {
   const items = years[y];
   const segs = CATS.map(c => {
     const n = items.filter(v => v.c === c.name).length;
-    return n ? `<div class="tseg" style="background:${c.color};height:0" data-h="${(n/maxY*100).toFixed(1)}" title="${c.name.slice(3)} : ${n}"></div>` : '';
+    return n ? `<div class="tseg" style="background:${c.color};height:0" data-h="${(n/items.length*100).toFixed(2)}" title="${c.name.slice(3)} : ${n}"></div>` : '';
   }).join('');
   return `<div class="tcol" title="${y} : ${items.length} vidéos">
     <div class="tcount">${items.length}</div>
-    <div class="tstack">${segs}</div>
+    <div class="tstack" style="height:${(items.length/maxY*100).toFixed(1)}%">${segs}</div>
     <div class="tyear">${y}</div>
   </div>`;
 }).join('');
